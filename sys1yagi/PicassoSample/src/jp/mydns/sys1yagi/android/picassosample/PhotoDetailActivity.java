@@ -1,9 +1,11 @@
 package jp.mydns.sys1yagi.android.picassosample;
 
+import jp.mydns.sys1yagi.android.picassosample.photo.GrayScaleTransformation;
 import uk.co.senab.photoview.PhotoViewAttacher;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -28,20 +30,24 @@ public class PhotoDetailActivity extends Activity {
         setContentView(R.layout.activity_photo_detail);
 
         String url = getIntent().getExtras().getString(PARAM_PHOTO_URL);
-
         final ImageView photo = (ImageView) findViewById(R.id.photo_detail_image);
-        Picasso.with(this).load(url).into(photo, new Callback() {
-            @Override
-            public void onError() {
 
-            }
+        Picasso.with(this).load(url)
+        // .transform(new GrayScaleTransformation())
+                .into(photo, new Callback() {
+                    @Override
+                    public void onError() {
+                        Log.d(TAG, "error");
+                    }
 
-            @Override
-            public void onSuccess() {
-                findViewById(R.id.progress_circular).setVisibility(View.GONE);
-                // 以下はPhotoViewの機能です
-                PhotoViewAttacher attacher = new PhotoViewAttacher(photo);
-            }
-        });
+                    @Override
+                    public void onSuccess() {
+                        findViewById(R.id.progress_circular).setVisibility(
+                                View.GONE);
+                        // 以下はPhotoViewの機能です
+                        PhotoViewAttacher attacher = new PhotoViewAttacher(
+                                photo);
+                    }
+                });
     }
 }

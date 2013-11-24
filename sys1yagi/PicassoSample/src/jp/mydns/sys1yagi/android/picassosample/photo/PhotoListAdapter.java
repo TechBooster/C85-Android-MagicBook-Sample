@@ -45,7 +45,9 @@ public class PhotoListAdapter extends ArrayAdapter<PhotoRow> {
             }
         });
         mPicasso.load(photo.getLeft().getMediumUrl())
-                .placeholder(R.drawable.placeholder).into(holder.mLeftImage);
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.ic_launcher)
+                .into(holder.mLeftImage);
         
         holder.mRightImage.setOnClickListener(new OnClickListener() {
             @Override
